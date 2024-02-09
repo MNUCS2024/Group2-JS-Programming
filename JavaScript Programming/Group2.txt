@@ -1,0 +1,1 @@
+This is a JavaScript code printing the names of the group member both in a table format and list format

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waste Management System</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            text-align: center;
+            padding: 1em;
+        }
+
+        section {
+            background-color: #ecf0f1;
+            margin: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2 {
+            color: #3498db;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            border: 1px solid #bdc3c7;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #3498db;
+            color: #ecf0f1;
+        }
+
+        select, input, button {
+            margin-bottom: 10px;
+            padding: 8px;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #2ecc71;
+            color: #ecf0f1;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #27ae60;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .fadeIn {
+            animation: fadeIn 1s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Waste Management System</h1>
+    </header>
+
+    <section class="fadeIn">
+        <h2>Waste Bin List</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Bin ID</th>
+                    <th>Location</th>
+                    <th>Capacity</th>
+                    <th>Current Level</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+        </table>
+    </section>
+
+    <section class="fadeIn">
+        <h2>Request Disposal</h2>
+        <form id="disposalForm">
+            <label for="binId">Select Bin:</label>
+            <select id="binId" name="binId" required>
+                <option value="1">Bin 1 - Main Street</option>
+                <option value="2">Bin 2 - Kasarani</option>
+                <!-- Add more options as needed -->
+            </select>
+
+            <label for="capacity">Capacity:</label>
+            <input type="text" id="capacity" name="capacity" value="20" readonly required>
+
+            <label for="currentLevel">Current Level:</label>
+            <input type="text" id="currentLevel" name="currentLevel" required>
+
+            <label for="status">Status:</label>
+            <input type="text" id="status" name="status" readonly required>
+
+            <button type="submit">Update Bin Data</button>
+        </form>
+    </section>
+
+    <script>
+        function updateBinData(event) {
+            event.preventDefault();
+
+            const binId = document.getElementById('binId').value;
+            const capacity = parseInt(document.getElementById('capacity').value);
+            const currentLevel = parseInt(document.getElementById('currentLevel').value);
+
+            // Calculate the status based on the condition
+            const status = currentLevel < capacity ? 'Not Full' : 'Full';
+
+            const table = document.querySelector('table tbody');
+
+            // Find the row corresponding to the selected bin
+            const row = table.querySelector(tr[data-id="${binId}"]);
+
+            // Update the table row with the new data including the calculated status
+            if (row) {
+                row.innerHTML = <td>${binId}</td><td>Main Street</td><td>${capacity}</td><td>${currentLevel}</td><td>${status}</td>;
+            } else {
+                // Add a new row if the bin is not found
+                table.innerHTML += <tr data-id="${binId}"><td>${binId}</td><td>Main Street</td><td>${capacity}</td><td>${currentLevel}</td><td>${status}</td></tr>;
+            }
+
+            alert('Bin data updated successfully. Bin is ' + status + '.');
+        }
+
+        document.getElementById('disposalForm').addEventListener('submit', updateBinData);
+    </script>
+</body>
+</html>
